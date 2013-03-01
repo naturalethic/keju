@@ -1,0 +1,23 @@
+export WORKSPACE_COLOR=1
+
+function keju-help()
+{
+  echo "Usage: keju <command>"
+  echo "  repl - start a clojurescript browser repl"
+  echo "  ring - start a ring server"
+  echo "  auto - auto build"
+}
+
+function keju()
+{
+  if [ $# -lt 1 ]; then
+    keju-help
+  else
+    case $1 in
+      "repl") rlwrap -r -m -b "(){}[],^%3@\";:'" lein trampoline cljsbuild repl-listen ;;
+      "ring") lein ring server-headless ;;
+      "auto") lein cljsbuild auto ;;
+      *)      keju-help
+    esac
+  fi
+}

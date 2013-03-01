@@ -1,6 +1,19 @@
-(ns keju.server)
+(ns keju.server
+  (:use [ring.middleware file file-info]))
 
-(defn app [req]
-  {:status 200
+(defn default-handler [req]
+  (println "FOO")
+  {:status 404
    :headers {"Content-Type" "text/html"}
-   :body "Howdy"})
+   :body "<!DOCTYPE html>
+          <html>
+            <body>
+              Not found.
+            </body>
+          </html>"})
+
+(def app
+  (-> default-handler
+      (wrap-file "public")
+      (wrap-file-info)
+      ))
