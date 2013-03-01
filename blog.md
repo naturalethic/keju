@@ -15,7 +15,7 @@ I've chosen the name 'keju' for this project.  Here's why:
 
 For this project, I will presume the server is named `sandbox`.  Keep it in mind to replace that with your own server name in any code/cli examples.
 
-## The Simplest of Servers ([revision](https://github.com/naturalethic/keju/tree/acb533c825cbceca8afc0713dbd55adef7bb92c4))
+## The Simplest of Servers
 
 To start with, I want to serve web requests.  I want the server to just return a 'Howdy' when I point my browser at the host and port.  To do this, I need exactly two files.
 
@@ -30,7 +30,7 @@ This project is built and run with [`leiningen`](https://github.com/technomancy/
 
     (defproject keju "0.1.0-SNAPSHOT"
       :dependencies [[org.clojure/clojure "1.5.0"]]
-      :plugins [[lein-ring "0.8.2"]]
+      :plugins [[lein-ring "0.8.3"]]
       :source-paths ["code/server"]
       :ring {:handler keju.server/app})
 
@@ -76,9 +76,9 @@ This is a ClojureScript file, which is quite similar to regular Clojure.  As wit
 Ok, this code must be compiled into javascript for the browser to be able to run it.  Add some stuff to `project.clj` so that it now looks like this:
 
     (defproject keju "0.1.0-SNAPSHOT"
-      :dependencies [[org.clojure/clojure "1.5.0-RC16"]]
+      :dependencies [[org.clojure/clojure "1.5.0"]]
       :plugins [[lein-cljsbuild "0.3.0"]]
-                [lein-ring "0.8.2"]]
+                [lein-ring "0.8.3"]]
       :source-paths ["code/server"]
       :ring {:handler keju.server/app}
       :cljsbuild {:builds [{:source-paths ["code/client"]
