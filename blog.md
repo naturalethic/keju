@@ -222,5 +222,5 @@ I like to alias things like this in a bash script which I `source` into my envir
       fi
     }
 
-You'll notice I'm using `cljsbuild auto` here.  That will have leiningen rebuild whenever their are changes in the client portion of our codebase.
+You'll notice I'm using `cljsbuild auto` here.  That will have leiningen rebuild whenever there are changes in the client portion of our codebase.
 
