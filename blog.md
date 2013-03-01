@@ -180,7 +180,7 @@ Ok, restart the ring server and curl it from a new console
 
 You should get the index.html page, the client.js page, and the 404 page.
 
-### Finishing It Up
+### Finishing it up
 
 Reload your browser page pointing at the app, and keep an eye on your browser console.  If everything is working correctly up to this point, you'll get an error failing a GET request to sandbox:9000.  The last step in this section is to run the server side repl.  In a new server console, run this command (from the project dir, as always):
 
