@@ -168,7 +168,7 @@ Now, modify `server.clj` to look like this:
           (wrap-file-info)
           ))
 
-I've modified the original handler to provide a 404 response, and renamed it to `default-handler`.  In the namespace declaration, we're now pulling in the middleware we'll need to serve static files.  Each middleware provides a `wrap` function to be placed in our chain.  `app` has been redifined to a *thrushed* sequence of functions.  The `wrap` functions actually return a new function to be placed in the sequence.  Our own handler is at the top.  Without necessarilly understanding exactly how this all works internally, just be aware that `app` is now defined as a sequence of functions where the request enters at the bottom, and proceeds, if allowed, up the chain, until it hits the default, and then the response is sent back down through the chain.  Any function in the sequence can preempt further propagation and immediatly return the response down the chain without further progress up the chain.
+I've modified the original handler to provide a 404 response, and renamed it to `default-handler`.  In the namespace declaration, we're now pulling in the middleware we'll need to serve static files.  Each middleware provides a `wrap` function to be placed in our chain.  `app` has been redifined to a *thrushed* sequence of functions.  The `wrap` function calls actually return new functions to be placed in the sequence.  Our own handler is at the top.  Without necessarilly understanding exactly how this all works internally, just be aware that `app` is now defined as a sequence of functions where the request enters at the bottom, and proceeds, if allowed, up the chain, until it hits the default, and then the response is sent back down through the chain.  Any function in the sequence can preempt further propagation and immediatly return the response down the chain without further progress up the chain.
 
 So what's now happening here?  Ring generates a request map, and sends it to `file-info`, a piece of middleware for determining the content-type of the response.  Since it has no use for the request, it simply sends the request on up to `file`, which we've initialized to look in the `public` folder.  If `file` finds a static file after examining the request, it will load it into the response body and pass it right back down to `file-info`.  If it hadn't found a file, it would have let the request bubble up to our default handler.  `file-info`, being interested in the response, takes a look at it and tries to determine the content-type, finally passing the response back to ring, which sends it off to the browser.
 
@@ -180,7 +180,7 @@ Ok, restart the ring server and curl it from a new console
 
 You should get the index.html page, the client.js page, and the 404 page.
 
-=== Finishing It Up
+### Finishing It Up
 
 Reload your browser page pointing at the app, and keep an eye on your browser console.  If everything is working correctly up to this point, you'll get an error failing a GET request to sandbox:9000.  The last step in this section is to run the server side repl.  In a new server console, run this command (from the project dir, as always):
 
@@ -192,7 +192,7 @@ Once that command results in a repl prompt, reload your browser.  You'll not no 
 
 Switch back to your browser, neat-o, huh?
 
-=== One more thing
+### One more thing
 
 You might notice while messing around in the ClojureScript REPL that there is no curses support.  If you want that, you need to use [rlwrap](http://freecode.com/projects/rlwrap).  Once you have that installed (it may be a standard package for your server OS), you can run repl like so:
 
